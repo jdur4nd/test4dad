@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+
+    <style>
+        html {
+            background: url("https://images3.alphacoders.com/823/82317.jpg") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            height: 100%;
+        }
+        
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            text-shadow: 1px 3px 5px black, 0 0 5px white, 0 0 10px white;
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .firstElement {
+            padding: 20px;
+        }
+        
+        .secondElement {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .thirdElement {
+            text-align: right;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="firstElement">Patience, ça arrive ! Plus que ...</h2>
+        <div class="secondElement">
+            <h1 id="jour"></h1>
+            <h1 id="heure"></h1>
+        </div>
+        <h2 class="thirdElement">...avant du repos, des vacances et du bon temps ! 😉</h2>
+        <!-- Pour info : https://emojipedia.org/people/ -->
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
+    <script>
+        (function() {
+            var interval;
+
+            function launchTimer() {
+                clearInterval(interval);
+                var dateDepartRetraite = moment("2020-12-08T00:00:00Z");
+                var reste = dateDepartRetraite - moment();
+                document.getElementById("jour").innerHTML = moment.duration(reste).days();
+                if (moment.duration(reste).days() <= 1) {
+                    document.getElementById("jour").innerHTML = document.getElementById("jour").innerHTML + " jour";
+                } else {
+                    document.getElementById("jour").innerHTML = document.getElementById("jour").innerHTML + " jours";
+                }
+                document.getElementById("heure").innerHTML = ("" + moment.duration(reste).hours()).padStart(2, '0') + "h " +
+                    ("" + moment.duration(reste).minutes()).padStart(2, '0') + "m " +
+                    ("" + moment.duration(reste).seconds()).padStart(2, '0') + "s " +
+                    ("" + moment.duration(reste).milliseconds()).padStart(3, '0') + "ms ";
+
+                interval = setInterval(launchTimer, 10);
+            }
+
+            function msToDate() {
+
+            }
+
+            launchTimer();
+        })();
+    </script>
+</body>
+
+</html>
